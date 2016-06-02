@@ -40,26 +40,26 @@ if (empty($params['env']) || $params['env'] === '1') {
     }
 
     if (isset($envNames[$answer])) {
-        $envName = $envNames[$answer];
+        $envName = $envNames[$answer];//确定应用的环境
     }
 } else {
     $envName = $params['env'];
 }
 
-if (!in_array($envName, $envNames)) {
+if (!in_array($envName, $envNames)) {//如果选择的环境并不在规定可以设置的环境中
     $envsList = implode(', ', $envNames);
     echo "\n  $envName is not a valid environment. Try one of the following: $envsList. \n";
     exit(2);
 }
 
-$env = $envs[$envName];
+$env = $envs[$envName];//获取对应环境的配置信息，
 
 if (empty($params['env'])) {
     echo "\n  Initialize the application under '{$envNames[$answer]}' environment? [yes|no] ";
-    $answer = trim(fgets(STDIN));
-    if (strncasecmp($answer, 'y', 1)) {
+    $answer = trim(fgets(STDIN));//从标准输入中读取一行
+    if (strncasecmp($answer, 'y', 1)) {//二进制安全比较字符串开头的若干个字符（不区分大小写）a>b，并不是按ASCII码比较,第三个参数是指定对比的长度
         echo "\n  Quit initialization.\n";
-        exit(0);
+        exit(0);//退出
     }
 }
 
